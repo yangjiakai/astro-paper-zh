@@ -1,29 +1,29 @@
 ---
-title: How to add an estimated reading time in AstroPaper
 author: Sat Naing
-pubDatetime: 2023-07-21T10:11:06.130Z
-modDatetime: 2024-01-03T14:53:25Z
+pubDatetime: 2022-09-23T15:22:00Z
+modDatetime: 2023-07-21T10:11:06.130Z
+title: 如何在 AstroPaper 中添加预计阅读时间
 slug: how-to-add-estimated-reading-time
 featured: false
 draft: false
 tags:
   - FAQ
-description: How you can add an 'Estimated Reading time' in your blog posts of AstroPaper.
+description: 如何在 AstroPaper 的博客文章中添加"预计阅读时间"功能。
 ---
 
-As the [Astro docs](https://docs.astro.build/en/recipes/reading-time/) say, we can use remark plugin to add a reading time property in our frontmatter. However, for some reason, we can't add this feature by following what stated in Astro docs. Therefore, to achieve this, we have to tweak a little bit. This post will demonstrate how we can do that.
+正如 [Astro 文档](https://docs.astro.build/en/recipes/reading-time/) 所说，我们可以使用 remark 插件在 frontmatter 中添加阅读时间属性。但是由于某些原因，我们无法按照 Astro 文档中所述的方式添加此功能。因此，我们需要做一些调整。这篇文章将演示如何实现这一点。
 
-## Table of contents
+## 目录
 
-## Add reading time in PostDetails
+## 在 PostDetails 中添加阅读时间
 
-Step (1) Install required dependencies.
+步骤 (1) 安装必需的依赖。
 
 ```bash
 npm install reading-time mdast-util-to-string
 ```
 
-Step (2) Create `remark-reading-time.mjs` file under `utils` directory
+步骤 (2) 在 `utils` 目录下创建 `remark-reading-time.mjs` 文件
 
 ```js
 import getReadingTime from "reading-time";
@@ -33,28 +33,28 @@ export function remarkReadingTime() {
   return function (tree, { data }) {
     const textOnPage = toString(tree);
     const readingTime = getReadingTime(textOnPage);
-    // readingTime.text will give us minutes read as a friendly string,
-    // i.e. "3 min read"
+    // readingTime.text 将给我们一个友好的字符串形式的阅读时间
+    // 例如 "3 min read"
     data.astro.frontmatter.minutesRead = readingTime.text;
   };
 }
 ```
 
-Step (3) Add the plugin to `astro.config.ts`
+步骤 (3) 将插件添加到 `astro.config.ts` 中
 
 ```js
-import { remarkReadingTime } from "./src/utils/remark-reading-time.mjs"; // make sure your relative path is correct
+import { remarkReadingTime } from "./src/utils/remark-reading-time.mjs"; // 确保相对路径正确
 
 // https://astro.build/config
 export default defineConfig({
   site: SITE.website,
   integrations: [
-    // other integrations
+    // 其他集成
   ],
   markdown: {
     remarkPlugins: [
       remarkToc,
-      remarkReadingTime, // 👈🏻 our plugin
+      remarkReadingTime, // 👈🏻 我们的插件
       [
         remarkCollapse,
         {
@@ -62,13 +62,13 @@ export default defineConfig({
         },
       ],
     ],
-    // other config
+    // 其他配置
   },
-  // other config
+  // 其他配置
 });
 ```
 
-Step (4) Add `readingTime` to blog schema (`src/content/config.ts`)
+步骤 (4) 在博客模式中添加 `readingTime` (`src/content/config.ts`)
 
 ```ts
 import { SITE } from "@config";
@@ -78,7 +78,7 @@ const blog = defineCollection({
   type: "content",
   schema: ({ image }) =>
     z.object({
-      // others...
+      // 其他...
       canonicalURL: z.string().optional(),
       readingTime: z.string().optional(), // 👈🏻 readingTime frontmatter
     }),
@@ -87,7 +87,7 @@ const blog = defineCollection({
 export const collections = { blog };
 ```
 
-Step (5) Create a new file called `getPostsWithRT.ts` under `src/utils` directory.
+步骤 (5) 在 `src/utils` 目录下创建一个名为 `getPostsWithRT.ts` 的新文件。
 
 ```ts
 import type { CollectionEntry } from "astro:content";
@@ -101,10 +101,10 @@ interface Frontmatter {
 }
 
 export const getReadingTime = async () => {
-  // Get all posts using glob. This is to get the updated frontmatter
+  // 使用 glob 获取所有文章。这是为了获取更新后的 frontmatter
   const globPosts = import.meta.glob<Frontmatter>("../content/blog/*.md");
 
-  // Then, set those frontmatter value in a JS Map with key value pair
+  // 然后，在 JS Map 中设置这些 frontmatter 值的键值对
   const mapFrontmatter = new Map();
   const globPostsValues = Object.values(globPosts);
   await Promise.all(
@@ -131,11 +131,11 @@ const getPostsWithRT = async (posts: CollectionEntry<"blog">[]) => {
 export default getPostsWithRT;
 ```
 
-Step (6) Refactor `getStaticPaths` of `/src/pages/posts/[slug]/index.astro` as the following
+步骤 (6) 按如下方式重构 `/src/pages/posts/[slug]/index.astro` 中的 `getStaticPaths`
 
 ```ts
 ---
-// other imports
+// 其他导入
 import getPostsWithRT from "@utils/getPostsWithRT";
 
 export interface Props {
@@ -145,21 +145,21 @@ export interface Props {
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) => !data.draft);
 
-  const postsWithRT = await getPostsWithRT(posts); // replace reading time logic with this func
+  const postsWithRT = await getPostsWithRT(posts); // 用这个函数替换阅读时间逻辑
 
-   const postResult = postsWithRT.map(post => ({ // make sure to replace posts with postsWithRT
+   const postResult = postsWithRT.map(post => ({ // 确保用 postsWithRT 替换 posts
     params: { slug: post.slug },
     props: { post },
   }));
 
-// other codes
+// 其他代码
 ```
 
-Step (7) Refactor `PostDetails.astro` like this. Now you can access and display `readingTime` in `PostDetails.astro`
+步骤 (7) 像这样重构 `PostDetails.astro`。现在你可以在 `PostDetails.astro` 中访问和显示 `readingTime` 了
 
 ```ts
 ---
-// imports
+// 导入
 
 export interface Props {
   post: CollectionEntry<"blog">;
@@ -172,28 +172,28 @@ const {
   author,
   description,
   ogImage,
-  readingTime, // we can now directly access readingTime from frontmatter
+  readingTime, // 现在我们可以直接从 frontmatter 访问 readingTime
   pubDatetime,
   modDatetime,
   tags } = post.data;
 
-// other codes
+// 其他代码
 ---
 ```
 
-## Access reading time outside of PostDetails (optional)
+## 在 PostDetails 之外访问阅读时间（可选）
 
-By following the previous steps, you can now access `readingTime` frontmatter property in you post details page. Sometimes, this is exactly what you want. If so, you can skip to the next section. However, if you want to display "estimated reading time" in index, posts, and technically everywhere, you need to do the following extra steps.
+通过遵循前面的步骤，你现在可以在文章详情页面访问 `readingTime` frontmatter 属性。有时这正是你想要的。如果是这样，你可以跳过下一节。但是，如果你想在首页、文章列表页面等任何地方显示"预计阅读时间"，你需要执行以下额外步骤。
 
-Step (1) Update `utils/getSortedPosts.ts` as the following
+步骤 (1) 按如下方式更新 `utils/getSortedPosts.ts`
 
 ```ts
 import type { CollectionEntry } from "astro:content";
 import getPostsWithRT from "./getPostsWithRT";
 
 const getSortedPosts = async (posts: CollectionEntry<"blog">[]) => {
-  // make sure that this func is async
-  const postsWithRT = await getPostsWithRT(posts); // add reading time
+  // 确保这个函数是异步的
+  const postsWithRT = await getPostsWithRT(posts); // 添加阅读时间
   return postsWithRT
     .filter(({ data }) => !data.draft)
     .sort(
@@ -210,9 +210,9 @@ const getSortedPosts = async (posts: CollectionEntry<"blog">[]) => {
 export default getSortedPosts;
 ```
 
-Step (2) Make sure to refactor every file which uses `getSortedPosts` function. You can simply add `await` keyword in front of `getSortedPosts` function.
+步骤 (2) 确保重构每个使用 `getSortedPosts` 函数的文件。你只需在 `getSortedPosts` 函数前面添加 `await` 关键字。
 
-Files that use `getSortedPosts` function are as follow
+使用 `getSortedPosts` 函数的文件如下：
 
 - src/pages/index.astro
 - src/pages/search.astro
@@ -221,24 +221,24 @@ Files that use `getSortedPosts` function are as follow
 - src/pages/posts/[slug]/index.astro
 - src/utils/getPostsByTag.ts
 
-All you have to do is like this
+你需要做的就是这样：
 
 ```ts
-const sortedPosts = getSortedPosts(posts); // old code ❌
-const sortedPosts = await getSortedPosts(posts); // new code ✅
+const sortedPosts = getSortedPosts(posts); // 旧代码 ❌
+const sortedPosts = await getSortedPosts(posts); // 新代码 ✅
 ```
 
-Now, `getPostsByTag` function becomes an async function. Therefore, we needs to `await` the `getPostsByTag` function too.
+现在，`getPostsByTag` 函数变成了一个异步函数。因此，我们也需要 `await` `getPostsByTag` 函数。
 
 - src/pages/tags/[tag]/[page].astro
 - src/pages/tags/[tag]/index.astro
 
 ```ts
-const postsByTag = getPostsByTag(posts, tag); // old code ❌
-const postsByTag = await getPostsByTag(posts, tag); // new code ✅
+const postsByTag = getPostsByTag(posts, tag); // 旧代码 ❌
+const postsByTag = await getPostsByTag(posts, tag); // 新代码 ✅
 ```
 
-Moreover, update the `getStaticPaths` of `src/pages/tags/[tag]/[page].astro` like this:
+此外，像这样更新 `src/pages/tags/[tag]/[page].astro` 中的 `getStaticPaths`：
 
 ```ts
 export async function getStaticPaths() {
@@ -246,7 +246,7 @@ export async function getStaticPaths() {
 
   const tags = getUniqueTags(posts);
 
-  // Make sure to await the promises
+  // 确保等待 promises
   const paths = await Promise.all(
     tags.map(async ({ tag, tagName }) => {
       const tagPosts = await getPostsByTag(posts, tag);
@@ -259,19 +259,19 @@ export async function getStaticPaths() {
     })
   );
 
-  return paths.flat(); // Flatten the array of arrays
+  return paths.flat(); // 展平数组
 }
 ```
 
-Now you can access `readingTime` in other places besides `PostDetails`
+现在你可以在 `PostDetails` 之外的其他地方访问 `readingTime` 了
 
-## Displaying reading time (optional)
+## 显示阅读时间（可选）
 
-Since you can now access `readingTime` in your post details (or everywhere if you do the above section), it's up to you to display `readingTime` wherever you want.
+既然你现在可以在文章详情页（或如果你完成了上一节，则可以在任何地方）访问 `readingTime`，你可以根据需要在任何地方显示 `readingTime`。
 
-But in this section, I'm gonna show you how I would display `readingTime` in my components. This is optional. You can ignore this section if you want.
+但在本节中，我将向你展示如何在组件中显示 `readingTime`。这是可选的。如果你愿意，可以跳过这一节。
 
-Step (1) Update `Datetime` component to display `readingTime`
+步骤 (1) 更新 `Datetime` 组件以显示 `readingTime`
 
 ```tsx
 import { LOCALE } from "@config";
@@ -280,29 +280,29 @@ export interface Props {
   datetime: string | Date;
   size?: "sm" | "lg";
   className?: string;
-  readingTime?: string; // new type
+  readingTime?: string; // 新类型
 }
 
 export default function Datetime({
   datetime,
   size = "sm",
   className,
-  readingTime, // new prop
+  readingTime, // 新属性
 }: Props) {
   return (
-    // other codes
+    // 其他代码
     <span className={`italic ${size === "sm" ? "text-sm" : "text-base"}`}>
       <FormattedDatetime pubDatetime={pubDatetime} modDatetime={modDatetime} />
-      <span> ({readingTime})</span> {/* display reading time */}
+      <span> ({readingTime})</span> {/* 显示阅读时间 */}
     </span>
-    // other codes
+    // 其他代码
   );
 }
 ```
 
-Step (2) Then, pass `readingTime` props from its parent component.
+步骤 (2) 然后，从父组件传递 `readingTime` 属性。
 
-file: Card.tsx
+文件：Card.tsx
 
 ```ts
 export default function Card({ href, frontmatter, secHeading = true }: Props) {
@@ -319,10 +319,10 @@ export default function Card({ href, frontmatter, secHeading = true }: Props) {
 }
 ```
 
-file: PostDetails.tsx
+文件：PostDetails.tsx
 
 ```jsx
-// Other Codes
+// 其他代码
 <main id="main-content">
   <h1 class="post-title">{title}</h1>
   <Datetime
@@ -332,13 +332,13 @@ file: PostDetails.tsx
     className="my-2"
     readingTime={readingTime}
   />
-  {/* Other Codes */}
+  {/* 其他代码 */}
 </main>
-// Other Codes
+// 其他代码
 ```
 
-## Conclusion
+## 结论
 
-By following the provided steps and tweaks, you can now incorporate this useful feature into your content. I hope this post helps you adding `readingTime` in your blog. AstroPaper might include reading time by default in future releases. 🤷🏻‍♂️
+通过遵循提供的步骤和调整，你现在可以在你的内容中加入这个有用的功能。我希望这篇文章能帮助你在博客中添加 `readingTime`。AstroPaper 可能会在未来的版本中默认包含阅读时间。🤷🏻‍♂️
 
-Kyay Zuu for Reading 🙏🏻
+感谢阅读 🙏🏻

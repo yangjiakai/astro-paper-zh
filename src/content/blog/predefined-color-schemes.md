@@ -2,30 +2,28 @@
 author: Sat Naing
 pubDatetime: 2022-09-26T12:13:24Z
 modDatetime: 2024-01-04T09:09:06Z
-title: Predefined color schemes
+title: 预定义配色方案
 slug: predefined-color-schemes
 featured: false
 draft: false
 tags:
   - color-schemes
-description:
-  Some of the well-crafted, predefined color schemes for AstroPaper blog
-  theme.
+description: 为 AstroPaper 博客主题精心制作的一些预定义配色方案。
 ---
 
-I've crafted some predefined color schemes for this AstroPaper blog theme. You can replace these color schemes with the original ones.
+我为这个 AstroPaper 博客主题制作了一些预定义的配色方案。你可以用这些配色方案替换原有的配色。
 
-If you don't know how you can configure color schemes, check [this blog post](https://astro-paper.pages.dev/posts/customizing-astropaper-theme-color-schemes/).
+如果你不知道如何配置配色方案，请查看[这篇博文](https://astro-paper.pages.dev/posts/customizing-astropaper-theme-color-schemes/)。
 
-## Table of contents
+## 目录
 
-## Light color schemes
+## 浅色配色方案
 
-Light color scheme has to be defined using the css selector `:root` and `html[data-theme="light"]`.
+浅色配色方案必须使用 CSS 选择器 `:root` 和 `html[data-theme="light"]` 来定义。
 
-### Lobster
+### 龙虾配色
 
-![lobster-color-scheme](https://user-images.githubusercontent.com/53733092/192282447-1d222faf-a3ce-44a9-9cfe-ac873155e5a9.png)
+![龙虾配色方案](https://user-images.githubusercontent.com/53733092/192282447-1d222faf-a3ce-44a9-9cfe-ac873155e5a9.png)
 
 ```css
 :root,
@@ -39,9 +37,9 @@ html[data-theme="light"] {
 }
 ```
 
-### Leaf Blue
+### 叶蓝配色
 
-![leaf-blue-color-scheme](https://user-images.githubusercontent.com/53733092/192318782-e80e3c39-54b5-423e-8f4b-9ae60402fc8d.png)
+![叶蓝配色方案](https://user-images.githubusercontent.com/53733092/192318782-e80e3c39-54b5-423e-8f4b-9ae60402fc8d.png)
 
 ```css
 :root,
@@ -55,9 +53,9 @@ html[data-theme="light"] {
 }
 ```
 
-### Pinky light
+### 粉红浅色
 
-![pinky-color-scheme](https://user-images.githubusercontent.com/53733092/192286510-892d0042-2d6d-471e-bb72-954221ae2d17.png)
+![粉红配色方案](https://user-images.githubusercontent.com/53733092/192286510-892d0042-2d6d-471e-bb72-954221ae2d17.png)
 
 ```css
 :root,
@@ -71,13 +69,13 @@ html[data-theme="light"] {
 }
 ```
 
-## Dark color schemes
+## 深色配色方案
 
-Dark color scheme has to be defined as `html[data-theme="dark"]`.
+深色配色方案必须定义为 `html[data-theme="dark"]`。
 
-### AstroPaper 1 original Dark Theme
+### AstroPaper 1 原始深色主题
 
-![AstroPaper 1 default dark theme](https://user-images.githubusercontent.com/53733092/215769153-13b0ad8d-5ba2-44b1-af06-e5ae61293f62.png)
+![AstroPaper 1 默认深色主题](https://user-images.githubusercontent.com/53733092/215769153-13b0ad8d-5ba2-44b1-af06-e5ae61293f62.png)
 
 ```css
 html[data-theme="dark"] {
@@ -90,9 +88,9 @@ html[data-theme="dark"] {
 }
 ```
 
-### Deep Oyster
+### 深牡蛎配色
 
-![deep-oyster-color-scheme](https://user-images.githubusercontent.com/53733092/192314524-45ec5904-3d8f-450a-9edf-1e32c5e11d6c.png)
+![深牡蛎配色方案](https://user-images.githubusercontent.com/53733092/192314524-45ec5904-3d8f-450a-9edf-1e32c5e11d6c.png)
 
 ```css
 html[data-theme="dark"] {
@@ -105,9 +103,9 @@ html[data-theme="dark"] {
 }
 ```
 
-### Pikky dark
+### 粉红深色
 
-![pinky-dark-color-scheme](https://user-images.githubusercontent.com/53733092/192307050-fbd55326-911c-4001-87c6-a8ad9378ac2e.png)
+![粉红深色配色方案](https://user-images.githubusercontent.com/53733092/192307050-fbd55326-911c-4001-87c6-a8ad9378ac2e.png)
 
 ```css
 html[data-theme="dark"] {
@@ -120,13 +118,13 @@ html[data-theme="dark"] {
 }
 ```
 
-### Astro dark (High Contrast)
+### Astro 深色（高对比度）
 
-![astro-dark-color-scheme](https://user-images.githubusercontent.com/53733092/215680520-59427bb0-f4cb-48c0-bccc-f182a428d72d.svg)
+![astro-深色配色方案](https://user-images.githubusercontent.com/53733092/215680520-59427bb0-f4cb-48c0-bccc-f182a428d72d.svg)
 
 ```css
 html[data-theme="dark"] {
-  --color-fill: 16, 23, 42; /* higher contrast bgColor */
+  --color-fill: 16, 23, 42; /* 更高对比度背景色 */
   --color-fill: 33, 39, 55;
   --color-text-base: 234, 237, 243;
   --color-accent: 255, 107, 1;
@@ -136,13 +134,13 @@ html[data-theme="dark"] {
 }
 ```
 
-### Astro dark (New default dark theme in AstroPaper 2)
+### Astro 深色（AstroPaper 2 中的新默认深色主题）
 
-![new dark color scheme - low contrast](https://user-images.githubusercontent.com/53733092/215772856-d5b7ae35-ddaa-4ed6-b0bf-3fa5dbcf834c.png)
+![新深色配色方案 - 低对比度](https://user-images.githubusercontent.com/53733092/215772856-d5b7ae35-ddaa-4ed6-b0bf-3fa5dbcf834c.png)
 
 ```css
 html[data-theme="dark"] {
-  --color-fill: 33, 39, 55; /* lower contrast bgColor */
+  --color-fill: 33, 39, 55; /* 较低对比度背景色 */
   --color-text-base: 234, 237, 243;
   --color-accent: 255, 107, 1;
   --color-card: 52, 63, 96;
@@ -151,9 +149,9 @@ html[data-theme="dark"] {
 }
 ```
 
-### Astro Deep Purple (New dark theme in AstroPaper 3)
+### Astro 深紫色（AstroPaper 3 中的新深色主题）
 
-![AstroPaper v3 new theme](https://github.com/satnaing/astro-paper/assets/53733092/c8b5d7e1-a3bc-4852-a5ad-4abf7b3cec79)
+![AstroPaper v3 新主题](https://github.com/satnaing/astro-paper/assets/53733092/c8b5d7e1-a3bc-4852-a5ad-4abf7b3cec79)
 
 ```css
 html[data-theme="dark"] {
@@ -166,9 +164,9 @@ html[data-theme="dark"] {
 }
 ```
 
-### AstroPaper v4 Special (New dark theme in AstroPaper 4)
+### AstroPaper v4 特别版（AstroPaper 4 中的新深色主题）
 
-![AstroPaper v4 new theme](https://github.com/satnaing/astro-paper/assets/53733092/66eb74dc-7a0e-4f2e-982d-25f5c443b25a)
+![AstroPaper v4 新主题](https://github.com/satnaing/astro-paper/assets/53733092/66eb74dc-7a0e-4f2e-982d-25f5c443b25a)
 
 ```css
 html[data-theme="dark"] {

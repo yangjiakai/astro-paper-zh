@@ -1,76 +1,74 @@
 ---
 author: Sat Naing
 pubDatetime: 2022-09-25T15:20:35Z
-title: Customizing AstroPaper theme color schemes
+title: 自定义 AstroPaper 主题配色方案
 featured: false
 draft: false
 tags:
   - color-schemes
   - docs
-description:
-  How you can enable/disable light & dark mode; and customize color schemes
-  of AstroPaper theme.
+description: 如何启用/禁用明暗模式，以及自定义 AstroPaper 主题的配色方案。
 ---
 
-This post will explain how you can enable/disable light & dark mode for the website. Moreover, you'll learn how you can customize color schemes of the entire website.
+本文将说明如何为网站启用/禁用明暗模式。此外，你还将学习如何自定义整个网站的配色方案。
 
-## Table of contents
+## 目录
 
-## Enable/disable light & dark mode
+## 启用/禁用明暗模式
 
-AstroPaper theme will include light and dark mode by default. In other words, there will be two color schemes\_ one for light mode and another for dark mode. This default behavior can be disabled in SITE configuration object of the `src/config.ts` file.
+AstroPaper 主题默认包含明暗模式。换句话说，将有两种配色方案——一种用于明亮模式，另一种用于暗黑模式。可以在 `src/config.ts` 文件的 SITE 配置对象中禁用此默认行为。
 
 ```js
-// file: src/config.ts
+// 文件：src/config.ts
 export const SITE = {
   website: "https://astro-paper.pages.dev/",
   author: "Sat Naing",
-  desc: "A minimal, responsive and SEO-friendly Astro blog theme.",
+  desc: "一个简约、响应式且对 SEO 友好的 Astro 博客主题。",
   title: "AstroPaper",
   ogImage: "astropaper-og.jpg",
-  lightAndDarkMode: true, // true by default
+  lightAndDarkMode: true, // 默认为 true
   postPerPage: 3,
 };
 ```
 
-To disable `light & dark mode` set `SITE.lightAndDarkMode` to `false`.
+要禁用`明暗模式`，将 `SITE.lightAndDarkMode` 设置为 `false`。
 
-## Choose primary color scheme
+## 选择主要配色方案
 
-By default, if we disable `SITE.lightAndDarkMode`, we will only get system's prefers-color-scheme.
+默认情况下，如果我们禁用 `SITE.lightAndDarkMode`，我们将只获得系统的首选配色方案（prefers-color-scheme）。
 
-Thus, to choose primary color scheme instead of prefers-color-scheme, we have to set color scheme in the primaryColorScheme variable inside `public/toggle-theme.js`.
+因此，要选择主要配色方案而不是首选配色方案，我们必须在 `public/toggle-theme.js` 中的 primaryColorScheme 变量中设置配色方案。
 
 ```js
-/* file: public/toggle-theme.js */
+/* 文件：public/toggle-theme.js */
 const primaryColorScheme = ""; // "light" | "dark"
 
-// Get theme data from local storage
+// 从本地存储获取主题数据
 const currentTheme = localStorage.getItem("theme");
 
-// other codes etc...
+// 其他代码等...
 ```
 
-The **primaryColorScheme** variable can hold two values\_ `"light"`, `"dark"`. You can leave the empty string (default) if you don't want to specify the primary color scheme.
+**primaryColorScheme** 变量可以有两个值：`"light"`、`"dark"`。如果你不想指定主要配色方案，可以保留空字符串（默认）。
 
-- `""` - system's prefers-color-scheme. (default)
-- `"light"` - use light mode as primary color scheme.
-- `"dark"` - use dark mode as primary color scheme.
+- `""` - 系统的首选配色方案。（默认）
+- `"light"` - 使用明亮模式作为主要配色方案。
+- `"dark"` - 使用暗黑模式作为主要配色方案。
 
-<details><summary>Why 'primaryColorScheme' is not inside config.ts?</summary>
+<details><summary>为什么 'primaryColorScheme' 不在 config.ts 中？</summary>
 
-> To avoid color flickering on page reload, we have to place the toggle-switch JavaScript codes as early as possible when the page loads. It solves the problem of flickering, but as a trade-off, we cannot use ESM imports anymore.
+> 为了避免页面重新加载时的颜色闪烁，我们必须在页面加载时尽早放置切换开关的 JavaScript 代码。这解决了闪烁问题，但作为权衡，我们不能再使用 ESM 导入。
 
-[Click here](https://docs.astro.build/en/reference/directives-reference/#isinline) to know more about Astro's `is:inline` script.
+[点击这里](https://docs.astro.build/en/reference/directives-reference/#isinline) 了解更多关于 Astro 的 `is:inline` 脚本。
 
 </details>
 
-## Customize color schemes
+## 自定义配色方案
 
-Both light & dark color schemes of AstroPaper theme can be customized. You can do this in `src/styles/base.css` file.
+AstroPaper 主题的明暗配色方案都可以自定义。你可以在 `src/styles/base.css` 文件中进行此操作。
 
 ```css
-/* file: src/styles/base.css */
+/* 文件：src/styles/base.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -93,30 +91,30 @@ Both light & dark color schemes of AstroPaper theme can be customized. You can d
     --color-card-muted: 89, 107, 129;
     --color-border: 59, 70, 85;
   }
-  /* other styles */
+  /* 其他样式 */
 }
 ```
 
-In AstroPaper theme, `:root` and `html[data-theme="light"]` selectors are used as the light color scheme and `html[data-theme="dark"]` is used the dark color scheme. If you want to customize your custom color scheme, you have to specify your light color scheme inside `:root`,`html[data-theme="light"]` and dark color scheme inside `html[data-theme="dark"]`.
+在 AstroPaper 主题中，`:root` 和 `html[data-theme="light"]` 选择器用作明亮配色方案，`html[data-theme="dark"]` 用作暗黑配色方案。如果你想自定义你的配色方案，你必须在 `:root`、`html[data-theme="light"]` 内指定你的明亮配色方案，在 `html[data-theme="dark"]` 内指定暗黑配色方案。
 
-Colors are declared in CSS custom property (CSS Variable) notation. Color property values are written in rgb values. (Note: instead of `rgb(40, 39, 40)`, only specify `40, 39, 40`)
+颜色以 CSS 自定义属性（CSS 变量）表示法声明。颜色属性值以 rgb 值编写。（注意：不要写成 `rgb(40, 39, 40)`，只需指定 `40, 39, 40`）
 
-Here is the detail explanation of color properties.
+以下是颜色属性的详细说明。
 
-| Color Property       | Definition & Usage                                         |
-| -------------------- | ---------------------------------------------------------- |
-| `--color-fill`       | Primary color of the website. Usually the main background. |
-| `--color-text-base`  | Secondary color of the website. Usually the text color.    |
-| `--color-accent`     | Accent color of the website. Link color, hover color etc.  |
-| `--color-card`       | Card, scrollbar and code background color (like `this`).   |
-| `--color-card-muted` | Card and scrollbar background color for hover state etc.   |
-| `--color-border`     | Border color. Especially used in horizontal row (hr)       |
+| 颜色属性             | 定义和用途                                |
+| -------------------- | ----------------------------------------- |
+| `--color-fill`       | 网站的主要颜色。通常是主背景。            |
+| `--color-text-base`  | 网站的次要颜色。通常是文本颜色。          |
+| `--color-accent`     | 网站的强调颜色。链接颜色、悬停颜色等。    |
+| `--color-card`       | 卡片、滚动条和代码背景颜色（如 `this`）。 |
+| `--color-card-muted` | 卡片和滚动条的悬停状态等的背景颜色。      |
+| `--color-border`     | 边框颜色。特别用于水平线 (hr)             |
 
-Here is an example of changing the light color scheme.
+以下是更改明亮配色方案的示例。
 
 ```css
 @layer base {
-  /* lobster color scheme */
+  /* 龙虾配色方案 */
   :root,
   html[data-theme="light"] {
     --color-fill: 246, 238, 225;
@@ -129,4 +127,4 @@ Here is an example of changing the light color scheme.
 }
 ```
 
-> Check out some [predefined color schemes](https://astro-paper.pages.dev/posts/predefined-color-schemes/) AstroPaper has already crafted for you.
+> 查看一些 AstroPaper 已经为你精心制作的[预定义配色方案](https://astro-paper.pages.dev/posts/predefined-color-schemes/)。

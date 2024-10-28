@@ -2,39 +2,39 @@
 author: Simon Smale
 pubDatetime: 2024-01-08T18:16:00.000Z
 modDatetime:
-title: How to add a new Social Icon to AstroPaper
+title: 如何在 AstroPaper 中添加新的社交图标
 featured: false
 draft: false
 tags:
   - FAQ
-description: How to add a new social icon to AstroPaper
+description: 如何在 AstroPaper 中添加新的社交图标
 ---
 
-Hot new platform? Niche corner of the internet? Or one specific to your area? This post will guide you through how to add a new social icon to the theme.
+新兴平台？互联网的小众角落？或者是你所在地区特有的平台？本文将指导你如何在主题中添加新的社交图标。
 
-## Table of contents
+## 目录
 
-## Merging back to the theme
+## 合并回主题
 
-The maintainer of the theme [Sat Naing](https://github.com/satnaing) has said that he intends to only
+主题的维护者 [Sat Naing](https://github.com/satnaing) 表示他只打算
 
-> keep the project supporting only a specific set of popular social icons.
+> 让项目保持支持特定的一些流行社交图标。
 
-So there is a chance that your icon will not be in the repo, but fear not, it is very easy to add your own!
+所以你的图标可能不会出现在代码库中，但别担心，添加自己的图标非常简单！
 
-## Getting things to match
+## 匹配图标风格
 
-The icon set used by the theme come from [Tabler](https://tabler.io/icons) and there are a quite a few brands on there.
+主题使用的图标集来自 [Tabler](https://tabler.io/icons)，那里有相当多的品牌图标。
 
-## Adding your icon, by example
+## 通过示例添加图标
 
-For this guide we are going to use the StackOverflow icon as our example.
+在本指南中，我们将以 StackOverflow 图标为例。
 
-### Find the icon
+### 查找图标
 
-> In this case, we are going to use the `StackOverflow` as an example.
+> 在本例中，我们将使用 `StackOverflow` 作为示例。
 
-Searching on Tabler for 'StackOverflow' we get a single icon <https://tabler.io/icons/icon/brand-stackoverflow>, we are going to need the svg code, so save it for later.
+在 Tabler 中搜索 'StackOverflow'，我们得到一个图标 <https://tabler.io/icons/icon/brand-stackoverflow>，我们需要它的 svg 代码，先保存下来。
 
 ```html
 <svg
@@ -58,18 +58,18 @@ Searching on Tabler for 'StackOverflow' we get a single icon <https://tabler.io/
 </svg>
 ```
 
-### Clean up
+### 清理代码
 
-We need to do some tidy up on what the theme provides us.
+我们需要对主题提供的代码进行一些整理。
 
-1. remove all classes other than `icon-tabler`
-2. remove width & height
-3. remove the viewBox
-4. remove the stroke-width
-5. remove the stroke
-6. remove the fill
+1. 只保留 `icon-tabler` class
+2. 移除 width 和 height
+3. 移除 viewBox
+4. 移除 stroke-width
+5. 移除 stroke
+6. 移除 fill
 
-This should leave you with the following
+整理后应该如下所示：
 
 ```html
 <svg
@@ -86,11 +86,11 @@ This should leave you with the following
 </svg>
 ```
 
-Now we can add the clean svg code to the `src/assets/socialIcons.ts` file in `SocialIcons`.
+现在我们可以将清理过的 svg 代码添加到 `src/assets/socialIcons.ts` 文件中的 `SocialIcons` 对象中。
 
 ```typescript
 const socialIcons = {
-  /* others */
+  /* 其他图标 */
   StackOverflow: `<svg
        xmlns="http://www.w3.org/2000/svg"
        class="icon-tabler
@@ -106,20 +106,20 @@ const socialIcons = {
 };
 ```
 
-Finally we can configure it for our blog in `src/config.ts` under `SOCIALS`. Setting `active: true` to add it to the site.
+最后，我们可以在 `src/config.ts` 中的 `SOCIALS` 下配置它。设置 `active: true` 将其添加到网站中。
 
 ```typescript
 export const SOCIALS: SocialObjects = [
-  /* others */
+  /* 其他社交平台 */
   {
     name: "StackOverflow",
     href: "https://stackoverflow.com/search?q=astropaper",
-    linkTitle: `See what questions there are about ${SITE.title} on StackOverflow`,
+    linkTitle: `在 StackOverflow 上查看关于 ${SITE.title} 的问题`,
     active: true,
   },
 ];
 ```
 
-> Ensure that `href` and `linkTitle` are updated for the corresponding link and label.
+> 确保更新 `href` 和 `linkTitle` 为相应的链接和标签。
 
-Full code for the above steps can be found in [this pull request](https://github.com/satnaing/astro-paper/pull/216/files)
+以上步骤的完整代码可以在[这个 pull request](https://github.com/satnaing/astro-paper/pull/216/files) 中找到。
