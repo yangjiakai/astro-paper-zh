@@ -1,6 +1,8 @@
 # AstroPaper 📄
 
-AstroPaper 是一个极简、响应式、无障碍且 SEO 友好的 Astro 博客主题。这个主题是基于[我的个人博客](https://satnaing.dev/blog)设计和制作的。
+AstroPaper的中文版仓库
+
+AstroPaper 是一个极简、响应式、无障碍且 SEO 友好的 Astro 博客主题。这个主题是基于[博客](https://satnaing.dev/blog)设计和制作的。
 
 该主题遵循最佳实践，默认提供无障碍功能。默认支持浅色和深色模式。此外，还可以配置其他配色方案。
 
@@ -166,15 +168,3 @@ PUBLIC_GOOGLE_SITE_VERIFICATION=你的-google-站点验证-值
 | `docker run -p 4321:80 astropaper`   | 在 Docker 上运行 AstroPaper。网站将在 `http://localhost:4321` 上可访问                                             |
 
 > **_警告！_** Windows PowerShell 用户如果想要在开发期间[运行诊断](https://docs.astro.build/en/reference/cli-reference/#astro-check)（`astro check --watch & astro dev`），可能需要安装 [concurrently 包](https://www.npmjs.com/package/concurrently)。更多信息，请参见[此问题](https://github.com/satnaing/astro-paper/issues/113)。
-
-## ✨ 反馈 & 建议
-
-如果你有任何建议/反馈，可以通过[我的邮箱](mailto:contact@satnaing.dev)联系我。或者，如果你发现错误或想要请求新功能，随时可以开启一个 issue。
-
-## 📜 许可证
-
-基于 MIT 许可证授权，版权所有 © 2023
-
----
-
-由 [Sat Naing](https://satnaing.dev) 👨🏻‍💻 和[贡献者们](https://github.com/satnaing/astro-paper/graphs/contributors)用 🤍 制作。
